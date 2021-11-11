@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using Raylib_cs;
-using cse210_batter_csharp.Casting;
+using cse210_batter.Casting;
 
-namespace cse210_batter_csharp.Services
+namespace cse210_batter.Services
 {
     /// <summary>
     /// Handles all the interaction with the drawing library.
