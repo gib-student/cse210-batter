@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using cse210_batter_csharp.Casting;
+using cse210_batter.Casting;
 
-namespace cse210_batter_csharp
+namespace cse210_batter
 {
     /// <summary>
     /// The base class of all other actions.

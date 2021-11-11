@@ -1,10 +1,10 @@
 ﻿using System;
-using cse210_batter_csharp.Services;
-using cse210_batter_csharp.Casting;
-using cse210_batter_csharp.Scripting;
+using cse210_batter.Services;
+using cse210_batter.Casting;
+using cse210_batter.Scripting;
 using System.Collections.Generic;
 
-namespace cse210_batter_csharp
+namespace cse210_batter
 {
     class Program
     {
@@ -29,7 +29,8 @@ namespace cse210_batter_csharp
             // TODO: Add your paddle here
 
             // Create the script
-            Dictionary<string, List<Action>> script = new Dictionary<string, List<Action>>();
+            Dictionary<string, List<Action>> script = new Dictionary<string, 
+                List<Action>>();
 
             OutputService outputService = new OutputService();
             InputService inputService = new InputService();
@@ -43,10 +44,20 @@ namespace cse210_batter_csharp
             DrawActorsAction drawActorsAction = new DrawActorsAction(outputService);
             script["output"].Add(drawActorsAction);
 
-            // TODO: Add additional actions here to handle the input, move the actors, handle collisions, etc.
+            // TODO: Add additional actions here to handle the input, move the
+            // actors, handle collisions, etc.
+            MoveActorsAction moveActorsAction = new MoveActorsAction();
+            script["update"].Add(moveActorsAction);
+
+            HandleCollisionsAction handleCollisionsAction = new HandleCollisionsAction(physicsService);
+            script["update"].Add(handleCollisionsAction);
+
+            ControlActorsAction controlActorsAction = new ControlActorsAction(inputService);
+            script["input"].Add(controlActorsAction);
 
             // Start up the game
-            outputService.OpenWindow(Constants.MAX_X, Constants.MAX_Y, "Batter", Constants.FRAME_RATE);
+            outputService.OpenWindow(Constants.MAX_X, Constants.MAX_Y, 
+                "Batter", Constants.FRAME_RATE);
             audioService.StartAudio();
             audioService.PlaySound(Constants.SOUND_START);
 
