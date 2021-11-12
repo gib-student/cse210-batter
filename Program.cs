@@ -17,16 +17,31 @@ namespace cse210_batter
             cast["bricks"] = new List<Actor>();
 
             // TODO: Add your bricks here
+            for (int y = 5; y < Constants.MAX_Y / 3; 
+                y += (Constants.BRICK_HEIGHT + 3))
+            {
+                for(int x = 5; x < (Constants.MAX_X - 5);
+                    x += (Constants.BRICK_WIDTH + 5))
+                {
+                    Point position = new Point(x,y);
+                    Brick brick = new Brick(position);
+                    cast["bricks"].Add(brick);
+                }
+            }
 
             // The Ball (or balls if desired)
             cast["balls"] = new List<Actor>();
 
             // TODO: Add your ball here
+            Ball ball = new Ball();
+            cast["balls"].Add(ball);
 
             // The paddle
             cast["paddle"] = new List<Actor>();
 
             // TODO: Add your paddle here
+            Paddle paddle = new Paddle();
+            cast["paddle"].Add(paddle);
 
             // Create the script
             Dictionary<string, List<Action>> script = new Dictionary<string, 
