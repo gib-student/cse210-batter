@@ -14,8 +14,8 @@ namespace cse210_batter.Casting
          SetPosition(position);
          SetVelocity(velocity);
          SetImage(Constants.IMAGE_BRICK);
-         SetWidth(Constants.BALL_WIDTH);
-         SetHeight(Constants.BALL_HEIGHT);
+         SetWidth(Constants.BRICK_WIDTH);
+         SetHeight(Constants.BRICK_HEIGHT);
       }
    }
 }
