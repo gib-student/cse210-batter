@@ -4,6 +4,9 @@ using cse210_batter.Services;
 
 namespace cse210_batter.Scripting
 {
+   /// <summary>
+   /// An action to get user input, and update actors accordingly.
+   /// </summary>
    public class ControlActorsAction: Action
    {
       private InputService _inputService;
@@ -15,7 +18,12 @@ namespace cse210_batter.Scripting
 
       public override void Execute(Dictionary<string, List<Actor>> cast)
       {
-         throw new System.NotImplementedException();
+         Point direction = _inputService.GetDirection();
+
+         Actor paddle = cast["paddle"][0];
+
+         Point paddleVelocity = direction.Scale(Constants.PADDLE_SPEED);
+         paddle.SetVelocity(paddleVelocity);
       }
    }
 }

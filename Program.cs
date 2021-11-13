@@ -18,16 +18,14 @@ namespace cse210_batter
 
             // TODO: Add your bricks here
             for (int y = 5; y < Constants.MAX_Y / 3; 
-                y += (Constants.BRICK_HEIGHT + 3))  // +3 is arbitrary, just
+                y += (Constants.BRICK_HEIGHT + 3))  // +3 is arbitrary for
                                                     // extra padding
             {
                 for(int x = 5; x < (Constants.MAX_X - 5);
-                    x += (Constants.BRICK_WIDTH + 5)) // +5 is arbitrary, just
-                                                      // extra padding
+                    x += (Constants.BRICK_WIDTH + Constants.BRICK_SPACE))
                 {
                     Point position = new Point(x,y);
-                    Brick brick = new Brick(position);
-                    cast["bricks"].Add(brick);
+                    cast["bricks"].Add(new Brick(position));
                 }
             }
 
