@@ -40,6 +40,11 @@ namespace cse210_batter
                 {
                     _keepPlaying = false;
                 }
+                else if (IfGameOver())
+                {
+                    _keepPlaying = false;
+                    EndGame();
+                }
             }
         }
 
@@ -54,6 +59,44 @@ namespace cse210_batter
             foreach (Action action in actions)
             {
                 action.Execute(_cast);
+            }
+        }
+
+        private int GetNumBalls()
+        {
+            int numBalls = 0;
+            foreach (Ball ball in _cast["balls"])
+            {
+                numBalls++;
+            }
+
+            return numBalls;
+        }
+
+        private bool IfGameOver()
+        {
+            if(GetNumBalls() == 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private void EndGame()
+        {
+            AudioService audioService = new AudioService();
+            OutputService outputService = new OutputService();
+
+            // Play game-over sound
+            audioService.PlaySound(Constants.SOUND_OVER);
+
+            // Display the last frame of the game plus "game over" until the
+            // user closes the window
+            while(!Raylib_cs.Raylib.WindowShouldClose())
+            {
+                _script["output"][0].Execute(_cast);
+                outputService.DrawText(Constants.GAME_OVER_X, 
+                    Constants.GAME_OVER_Y, Constants.GAME_OVER_TEXT, false);
             }
         }
     }

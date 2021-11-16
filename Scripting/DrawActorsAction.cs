@@ -25,6 +25,12 @@ namespace cse210_batter.Scripting
             {
                 _outputService.DrawActors(group);
             }
+            
+            // Draw lives
+            Lives lives = (Lives)cast["lives"][0];
+            string livesText = $"Lives: " + lives.GetLives();
+            _outputService.DrawText(Constants.LIVES_X, Constants.LIVES_Y, 
+                livesText, false);
 
             _outputService.EndDrawing();
         }
