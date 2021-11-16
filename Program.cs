@@ -16,10 +16,8 @@ namespace cse210_batter
             // Bricks
             cast["bricks"] = new List<Actor>();
 
-            // TODO: Add your bricks here
-            for (int y = 5; y < Constants.MAX_Y / 3; 
-                y += (Constants.BRICK_HEIGHT + 3))  // +3 is arbitrary for
-                                                    // extra padding
+            for (int y = 5; y < Constants.MAX_Y / 2.5; 
+                y += (Constants.BRICK_HEIGHT + Constants.BRICK_SPACE))
             {
                 for(int x = 5; x < (Constants.MAX_X - 5);
                     x += (Constants.BRICK_WIDTH + Constants.BRICK_SPACE))
@@ -31,17 +29,11 @@ namespace cse210_batter
 
             // The Ball (or balls if desired)
             cast["balls"] = new List<Actor>();
-
-            // TODO: Add your ball here
-            Ball ball = new Ball();
-            cast["balls"].Add(ball);
+            cast["balls"].Add(new Ball());
 
             // The paddle
             cast["paddle"] = new List<Actor>();
-
-            // TODO: Add your paddle here
-            Paddle paddle = new Paddle();
-            cast["paddle"].Add(paddle);
+            cast["paddle"].Add(new Paddle());
 
             // Create the script
             Dictionary<string, List<Action>> script = new Dictionary<string, 
@@ -64,8 +56,13 @@ namespace cse210_batter
             MoveActorsAction moveActorsAction = new MoveActorsAction();
             script["update"].Add(moveActorsAction);
 
-            HandleCollisionsAction handleCollisionsAction = new HandleCollisionsAction(physicsService);
+            HandleCollisionsAction handleCollisionsAction = 
+                new HandleCollisionsAction(physicsService, audioService);
             script["update"].Add(handleCollisionsAction);
+
+            HandleOffScreenAction handleOffScreenAction = 
+                new HandleOffScreenAction(audioService);
+            script["update"].Add(handleOffScreenAction);
 
             ControlActorsAction controlActorsAction = new ControlActorsAction(inputService);
             script["input"].Add(controlActorsAction);

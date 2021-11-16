@@ -17,6 +17,20 @@ namespace cse210_batter.Services
         {
 
         }
+        
+        /// <summary>
+        /// Plays the bounce sound 
+        /// </summary>
+        public void PlayBounce()
+        {
+            if (!_sounds.ContainsKey(Constants.SOUND_BOUNCE))
+            {
+                Raylib_cs.Sound loaded = Raylib.LoadSound(Constants.SOUND_BOUNCE);
+                _sounds[Constants.SOUND_BOUNCE] = loaded;
+            }
+            Raylib_cs.Sound sound = _sounds[Constants.SOUND_BOUNCE];
+            Raylib.PlaySound(sound);
+        }
 
         /// <summary>
         /// Plays the sound stored in the provided .wav file.

@@ -20,10 +20,40 @@ namespace cse210_batter.Scripting
       {
          Point direction = _inputService.GetDirection();
 
-         Actor paddle = cast["paddle"][0];
+         foreach (Paddle paddle in cast["paddle"])
+         {
+            Point velocity = direction.Scale(Constants.PADDLE_SPEED);
+            
+            if (!(PaddleViolatesLeftWall(paddle) && GoingLeft(velocity)) &&
+                !(PaddleViolatesRightWall(paddle) && GoingRight(velocity)))
+            {
+               paddle.SetVelocity(velocity);
+            }            
+         }
+      }
 
-         Point paddleVelocity = direction.Scale(Constants.PADDLE_SPEED);
-         paddle.SetVelocity(paddleVelocity);
+      private bool PaddleViolatesLeftWall(Paddle paddle)
+      {
+         int x = paddle.GetPosition().GetX();
+         return (x < 0);
+      }
+
+      private bool PaddleViolatesRightWall(Paddle paddle)
+      {
+         int x = paddle.GetPosition().GetX();
+         return ((x + Constants.PADDLE_WIDTH) > Constants.MAX_X);
+      }
+
+      private bool GoingLeft(Point velocity)
+      {
+         int x = velocity.GetX();
+         return (x < 0);
+      }
+
+      private bool GoingRight(Point velocity)
+      {
+         int x = velocity.GetX();
+         return (x > 0);
       }
    }
 }

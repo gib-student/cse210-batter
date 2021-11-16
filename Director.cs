@@ -41,8 +41,6 @@ namespace cse210_batter
                     _keepPlaying = false;
                 }
             }
-
-            Console.WriteLine("Game over!");
         }
 
         /// <summary>
@@ -58,6 +56,5 @@ namespace cse210_batter
                 action.Execute(_cast);
             }
         }
-
     }
 }
