@@ -6,7 +6,9 @@ namespace cse210_batter.Scripting
 {
    public class HandleOffScreenAction : Action
    {
+      Dictionary<string, List<Actor>> _cast;
       AudioService _audioService;
+      Lives _lives;
       const string _leftWall = "left";
       const string _rightWall = "right";
       const string _upperWall = "upper";
@@ -20,20 +22,41 @@ namespace cse210_batter.Scripting
 
       public override void Execute(Dictionary<string, List<Actor>> cast)
       {
+         _cast = cast;
+         _lives = (Lives)_cast["lives"][0];
          // Handle balls goiong off screen
-         foreach (Ball ball in cast["balls"])
+         List<Ball> ballsToRemove = new List<Ball>();
+         foreach (Ball ball in _cast["balls"])
          {
             // Test if it hit a wall
             string wallHit = BallHitWall(ball);
-            if (wallHit != _noCollision)
+            // If the ball went out on the bottom, remove a life or remove the
+            // ball from play if no more lives
+            if (wallHit == _bottomWall)
+            {
+               if (_lives.NoLivesLeft())
+               {
+                  ballsToRemove.Add(ball);
+               }
+               else
+               {
+                  InverseBallVelocity(ball, wallHit);
+                  _audioService.PlayBounce();
+                  _lives.TakeALife();
+               }
+            }
+            // If the ball hit the left, right or upper walls, make it bounce
+            else if (wallHit != _noCollision)
             {
                _audioService.PlayBounce();
                InverseBallVelocity(ball, wallHit);
             }
          }
-
+         // Remove balls that went out of play
+         RemoveBallsFromPlay(ballsToRemove);
+         
          // Handle paddles going off screen
-         foreach (Paddle paddle in cast["paddle"])   
+         foreach (Paddle paddle in _cast["paddle"])
          {
             // Test if it has gone off-screen
             if (PaddleHitsWall(paddle))
@@ -44,7 +67,7 @@ namespace cse210_batter.Scripting
       }
 
       /// <summary>
-      /// Test if the actor hit a wall. If it did, then return a string 
+      /// Test if the actor hit a wall. If it did, then return a string
       /// containing a description of which wall it hit.
       /// </summary>
       /// <param name="actor">The actor which is to be tested if it hit a wall</param>
@@ -54,26 +77,26 @@ namespace cse210_batter.Scripting
          int x = actor.GetX();
          int y = actor.GetY();
 
-         if (x < 0)
+         if (actor.GetLeftEdge() < 0)
          {
             return _leftWall;
          }
-         else if (x + Constants.BALL_WIDTH > Constants.MAX_X)
+         else if (actor.GetRightEdge() > Constants.MAX_X)
          {
             return _rightWall;
          }
-         if (y < 0)
+         if (actor.GetTopEdge() < 0)
          {
             return _upperWall;
          }
-         else if (y + Constants.BALL_HEIGHT > Constants.MAX_Y)
+         else if (actor.GetBottomEdge() > Constants.MAX_Y)
          {
             return _bottomWall;
          }
 
          return _noCollision;
       }
-      
+
       /// <summary>
       /// Test if the paddle has collided with a horizontal wall.
       /// </summary>
@@ -82,8 +105,8 @@ namespace cse210_batter.Scripting
       {
          int x = actor.GetPosition().GetX();
 
-         if (x - Constants.PADDLE_WIDTH < 0 || 
-             x + Constants.PADDLE_WIDTH > Constants.MAX_X)
+         if (actor.GetLeftEdge() < 0 ||
+             actor.GetRightEdge() > Constants.MAX_X)
          {
             return true;
          }
@@ -103,20 +126,30 @@ namespace cse210_batter.Scripting
       /// </summary>
       /// <param name="actor">Actor whose velocity is to be changed</param>
       /// <param name="wallHit">Name of the wall which was hit</param>
-      private void InverseBallVelocity(Actor actor, string wallHit)
+      private void InverseBallVelocity(Ball ball, string wallHit)
       {
          if (wallHit == _leftWall || wallHit == _rightWall)
          {
-            InverseXVelocity(actor);
+            InverseXVelocity(ball);
          }
-         else if (wallHit == _upperWall)
+         else if (wallHit == _upperWall || wallHit == _bottomWall)
          {
-            InverseYVelocity(actor);
+            InverseYVelocity(ball);
          }
-         else if (wallHit == _bottomWall)
+      }
+
+      private void RemoveBallsFromPlay(List<Ball> ballsToRemove)
+      {
+         foreach(Ball ball in ballsToRemove)
          {
-            InverseYVelocity(actor);
+            RemoveBall(ball);
          }
+      }
+      
+      private void RemoveBall(Ball ball)
+      {
+         // Remove the ball from the cast
+         _cast["balls"].Remove(ball);
       }
    }
 }

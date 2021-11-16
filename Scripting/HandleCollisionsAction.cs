@@ -33,11 +33,13 @@ namespace cse210_batter.Scripting
             }
             // Handle if ball hits brick
             List<Brick> bricksToRemove = new List<Brick>();
+            bool ballInversed = false;
             foreach (Brick brick in cast["bricks"])
             {
-               if (BallHitBrick(ball, brick))
+               if (BallHitBrick(ball, brick) && !ballInversed)
                {
                   InverseYVelocity(ball);
+                  ballInversed = true;
                   bricksToRemove.Add(brick);
                   _audioService.PlayBounce();
                }

@@ -35,6 +35,11 @@ namespace cse210_batter
             cast["paddle"] = new List<Actor>();
             cast["paddle"].Add(new Paddle());
 
+            // Lives text
+            cast["lives"] = new List<Actor>();
+            Lives livesText = new Lives();
+            cast["lives"].Add(livesText);
+
             // Create the script
             Dictionary<string, List<Action>> script = new Dictionary<string, 
                 List<Action>>();

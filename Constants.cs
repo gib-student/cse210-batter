@@ -44,6 +44,13 @@ namespace cse210_batter
 
         public const int BALL_WIDTH = 24;
         public const int BALL_HEIGHT = 24;
+
+        public const int LIVES_X = 10;
+        public const int LIVES_Y = 570;
+
+        public const string GAME_OVER_TEXT = "GAME OVER";
+        public const int GAME_OVER_X = MAX_X / 2 - 70;
+        public const int GAME_OVER_Y = MAX_Y / 2;
     }
 
 }
