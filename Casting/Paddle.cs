@@ -4,7 +4,6 @@ namespace cse210_batter.Casting
 {
    public class Paddle : Actor
    {
-      private bool _againstWall = false;
       /// <summary>
       /// Creates a new Paddle
       /// </summary>
@@ -18,16 +17,6 @@ namespace cse210_batter.Casting
          SetImage(Constants.IMAGE_PADDLE);
          SetWidth(Constants.PADDLE_WIDTH);
          SetHeight(Constants.PADDLE_HEIGHT);
-      }
-
-      public bool GetAgainstWall()
-      {
-         return _againstWall;
-      }
-      
-      public void SetAgainstWall(bool againstWall)
-      {
-         _againstWall = againstWall;
       }
    }
 }
