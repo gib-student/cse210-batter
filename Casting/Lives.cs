@@ -20,6 +20,11 @@ namespace cse210_batter.Casting
          _lives--; 
       }
 
+      public void AddALife()
+      {
+         _lives++;
+      }
+
       public bool NoLivesLeft()
       {
          if (_lives == 1)
