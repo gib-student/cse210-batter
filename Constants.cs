@@ -28,6 +28,7 @@ namespace cse210_batter
 
         public const int BALL_DX = 8;
         public const int BALL_DY = BALL_DX * -1;
+        public const int NUM_BALLS = 2;
 
         public const int PADDLE_X = MAX_X / 2;
         public const int PADDLE_Y = MAX_Y - 25;
