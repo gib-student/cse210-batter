@@ -24,7 +24,8 @@ namespace cse210_batter.Scripting
       {
          _cast = cast;
          _lives = (Lives)_cast["lives"][0];
-         // Handle balls goiong off screen
+      
+         // Handle balls going off screen
          List<Ball> ballsToRemove = new List<Ball>();
          foreach (Ball ball in _cast["balls"])
          {
@@ -149,7 +150,6 @@ namespace cse210_batter.Scripting
       
       private void RemoveBall(Ball ball)
       {
-         // Remove the ball from the cast
          _cast["balls"].Remove(ball);
       }
    }
