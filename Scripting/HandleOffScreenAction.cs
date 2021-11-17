@@ -36,6 +36,7 @@ namespace cse210_batter.Scripting
             {
                if (_lives.NoLivesLeft())
                {
+                  _lives.TakeALife();
                   ballsToRemove.Add(ball);
                }
                else

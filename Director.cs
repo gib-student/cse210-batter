@@ -86,8 +86,6 @@ namespace cse210_batter
         {
             AudioService audioService = new AudioService();
             OutputService outputService = new OutputService();
-            Lives lives = (Lives)_cast["lives"][0];
-            lives.TakeALife();
 
             // Play game-over sound
             audioService.PlaySound(Constants.SOUND_OVER);
