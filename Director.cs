@@ -36,6 +36,8 @@ namespace cse210_batter
                 CueAction("update");
                 CueAction("output");
 
+                // Two end conditions are: user closes the window, and the 
+                // user loses the game. 
                 if (Raylib_cs.Raylib.WindowShouldClose())
                 {
                     _keepPlaying = false;
