@@ -16,7 +16,7 @@ namespace cse210_batter
             // Bricks
             cast["bricks"] = new List<Actor>();
 
-            for (int y = 5; y < Constants.MAX_Y / 2.5; 
+            for (int y = 5; y < Constants.MAX_Y / 2.5;
                 y += (Constants.BRICK_HEIGHT + Constants.BRICK_SPACE))
             {
                 for(int x = 5; x < (Constants.MAX_X - 5);
@@ -41,7 +41,7 @@ namespace cse210_batter
             cast["lives"].Add(livesText);
 
             // Create the script
-            Dictionary<string, List<Action>> script = new Dictionary<string, 
+            Dictionary<string, List<Action>> script = new Dictionary<string,
                 List<Action>>();
 
             OutputService outputService = new OutputService();
@@ -61,11 +61,11 @@ namespace cse210_batter
             MoveActorsAction moveActorsAction = new MoveActorsAction();
             script["update"].Add(moveActorsAction);
 
-            HandleCollisionsAction handleCollisionsAction = 
+            HandleCollisionsAction handleCollisionsAction =
                 new HandleCollisionsAction(physicsService, audioService);
             script["update"].Add(handleCollisionsAction);
 
-            HandleOffScreenAction handleOffScreenAction = 
+            HandleOffScreenAction handleOffScreenAction =
                 new HandleOffScreenAction(audioService);
             script["update"].Add(handleOffScreenAction);
 
@@ -73,7 +73,7 @@ namespace cse210_batter
             script["input"].Add(controlActorsAction);
 
             // Start up the game
-            outputService.OpenWindow(Constants.MAX_X, Constants.MAX_Y, 
+            outputService.OpenWindow(Constants.MAX_X, Constants.MAX_Y,
                 "Batter", Constants.FRAME_RATE);
             audioService.StartAudio();
             audioService.PlaySound(Constants.SOUND_START);

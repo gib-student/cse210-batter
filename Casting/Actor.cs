@@ -14,7 +14,7 @@ namespace cse210_batter.Casting
         protected int _height = 0;
 
         protected string _text = "";
-        private string _image = "";
+        private string _image = ""; 
 
         public Actor()
         {
