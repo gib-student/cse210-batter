@@ -1,6 +1,5 @@
 using System;
 using Raylib_cs;
-
 using cse210_batter.Casting;
 
 namespace cse210_batter.Services
